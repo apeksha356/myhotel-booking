@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyHotel Booking - Contact</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <img src="logo.jpeg" alt="MyHotel Booking">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button>Book Now</button>
+  </nav>
+
+  <div class="page">
+
+    
+    <div class="contact-info">
+      <h2>Contact Us</h2>
+      <div class="underline"></div>
+      <p>📞 +977 61 123456</p>
+      <p>✉️ info@myhotelbooking.com</p>
+      <p>🕐 Mon - Sun: 24 Hours</p>
+    </div>
+
+    <div class="form-section">
+
+      <!-- FORM -->
+      <div id="formSection">
+        <h2>Booking Form</h2>
+        <div class="form-underline"></div>
+
+        <div class="row">
+          <div class="group">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+          </div>
+          <div class="group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="group">
+            <label>Check-in Date</label>
+            <input type="date" id="checkin">
+          </div>
+          <div class="group">
+            <label>Check-out Date</label>
+            <input type="date" id="checkout">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="group">
+            <label>Room Type</label>
+            <select id="room">
+              <option value="">Select room type</option>
+              <option>Standard Room</option>
+              <option>Deluxe Room</option>
+              <option>Suite Room</option>
+            </select>
+          </div>
+          <div class="group">
+            <label>Guests</label>
+            <select id="guests">
+              <option value="">Select guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="group" style="margin-bottom: 16px;">
+          <label>Message (Optional)</label>
+          <textarea id="message" placeholder="Special requests..."></textarea>
+        </div>
+
+        <button class="btn-book" onclick="submitBooking()">Book Now</button>
+      </div>
+
+      <div class="success" id="successSection">
+        <h2>✅ Booking Confirmed!</h2>
+        <p>Thank you for choosing MyHotel Booking.<br>We will contact you shortly.</p>
+        <button class="btn-back" onclick="resetForm()">Make Another Booking</button>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 MyHotel Booking. All Rights Reserved.</span>
+    
+  </footer>
+
+  <script>
+    function submitBooking() {
+      var name     = document.getElementById('name').value.trim();
+      var email    = document.getElementById('email').value.trim();
+      var checkin  = document.getElementById('checkin').value;
+      var checkout = document.getElementById('checkout').value;
+      var room     = document.getElementById('room').value;
+      var guests   = document.getElementById('guests').value;
+
+      if (!name || !email || !checkin || !checkout || !room || !guests) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('successSection').style.display = 'block';
+    }
+
+    function resetForm() {
+      document.getElementById('name').value     = '';
+      document.getElementById('email').value    = '';
+      document.getElementById('checkin').value  = '';
+      document.getElementById('checkout').value = '';
+      document.getElementById('room').value     = '';
+      document.getElementById('guests').value   = '';
+      document.getElementById('message').value  = '';
+      document.getElementById('formSection').style.display  = 'block';
+      document.getElementById('successSection').style.display = 'none';
+    }
+    function submitBooking() {
+  var name     = document.getElementById('name').value.trim();
+  var email    = document.getElementById('email').value.trim();
+  var checkin  = document.getElementById('checkin').value;
+  var checkout = document.getElementById('checkout').value;
+  var room     = document.getElementById('room').value;
+  var guests   = document.getElementById('guests').value;
+
+  if (!name || !email || !checkin || !checkout || !room || !guests) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  var bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+
+  // check 1 - same email
+  var alreadyBooked = bookings.find(function(b) {
+    return b.email === email;
+  });
+
+  if (alreadyBooked) {
+    alert('This email already has an active booking!');
+    return;
+  }
+
+  // check 2 - same room same date
+  var conflict = bookings.find(function(b) {
+    return b.room === room && b.checkin === checkin;
+  });
+
+  if (conflict) {
+    alert('Sorry, this room is already booked for that date!');
+    return;
+  }
+
+  
+  bookings.push({ email: email, room: room, checkin: checkin });
+  localStorage.setItem('bookings', JSON.stringify(bookings));
+
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('successSection').style.display = 'block';
+}
+  </script>
+
+</body>
+</html>
