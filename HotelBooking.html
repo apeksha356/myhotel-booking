@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyHotel Our Rooms</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img src="Hb.jpeg" alt="MyHotel Logo" onerror="this.style.display='none'" />
+    MyHotel Booking
+  </a>
+
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#" class="active">Rooms</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#" class="book-btn" onclick="openModal(rooms[0]); return false;">Book Now</a>
+  </div>
+
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">Home</a>
+  <a href="#" class="active">Rooms</a>
+  <a href="#">About</a>
+  <a href="#">Contact</a>
+  <a href="#" class="book-btn" onclick="openModal(rooms[0]); return false;">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Our <span>Rooms</span></h1>
+  <p>Choose the perfect room for your stay</p>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterRooms('all', this)">All Rooms</button>
+    <button class="filter-btn" onclick="filterRooms('Deluxe', this)">Deluxe</button>
+    <button class="filter-btn" onclick="filterRooms('Standard', this)">Standard</button>
+    <button class="filter-btn" onclick="filterRooms('Suite', this)">Suite</button>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms-section">
+  <div class="rooms-grid" id="roomsGrid">
+    <p class="no-results" id="noResults">No rooms found.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>&copy; 2026 MyHotel Booking. All rights reserved.</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeOnBackdrop(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h2 id="modalTitle">Room Name</h2>
+    <p class="price" id="modalPrice"></p>
+
+    <label>Room type</label>
+    <select id="modalRoomType">
+      <option value="">Select a room type</option>
+      <option>Standard Room</option>
+      <option>Deluxe Room</option>
+      <option>Suite Room</option>
+    </select>
+
+    <label>Full name</label>
+    <input type="text" placeholder="e.g. Hari Sharma" />
+
+    <label>Email address</label>
+    <input type="email" placeholder="you@email.com" />
+
+    <div class="modal-row">
+      <div>
+        <label>Check-in</label>
+        <input type="date" />
+      </div>
+      <div>
+        <label>Check-out</label>
+        <input type="date" />
+      </div>
+    </div>
+
+    <label>Guests</label>
+    <input type="number" min="1" max="6" value="1" />
+
+    <button class="btn-book" onclick="confirmBooking()">Confirm booking</button>
+  </div>
+</div>
+
+<script>
+  const rooms = [
+    {
+      type: "Deluxe",
+      name: "Deluxe Room",
+      price: "NPR 4,000 / night",
+      img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
+      badge: "Popular",
+      amenities: [
+        { icon: "📶", label: "Free Wi-Fi" },
+        { icon: "❄️", label: "AC" },
+        { icon: "📺", label: "TV" },
+        { icon: "👤", label: "2 Guests" }
+      ]
+    },
+    {
+      type: "Standard",
+      name: "Standard Room",
+      price: "NPR 3,000 / night",
+      img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80",
+      badge: "Best Value",
+      amenities: [
+        { icon: "📶", label: "Free Wi-Fi" },
+        { icon: "❄️", label: "AC" },
+        { icon: "📺", label: "TV" },
+        { icon: "👤", label: "2 Guests" }
+      ]
+    },
+    {
+      type: "Suite",
+      name: "Suite Room",
+      price: "NPR 6,000 / night",
+      img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+      badge: "Luxury",
+      amenities: [
+        { icon: "📶", label: "Free Wi-Fi" },
+        { icon: "❄️", label: "AC" },
+        { icon: "📺", label: "TV" },
+        { icon: "👥", label: "4 Guests" }
+      ]
+    }
+  ];
+
+  function renderCards(data) {
+    const grid = document.getElementById("roomsGrid");
+    const noResults = document.getElementById("noResults");
+    grid.querySelectorAll(".card").forEach(c => c.remove());
+
+    if (!data.length) { noResults.style.display = "block"; return; }
+    noResults.style.display = "none";
+
+    data.forEach(room => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-img">
+          <img src="${room.img}" alt="${room.name}" loading="lazy" />
+          <span class="badge">${room.badge}</span>
+        </div>
+        <div class="card-body">
+          <h3>${room.name}</h3>
+          <p class="price">${room.price}</p>
+          <ul class="amenities">
+            ${room.amenities.map(a => `<li><span>${a.icon}</span>${a.label}</li>`).join("")}
+          </ul>
+          <button class="btn-book" onclick='openModal(${JSON.stringify(room)})'>Book Now</button>
+        </div>
+      `;
+      grid.insertBefore(card, noResults);
+    });
+  }
+
+  function filterRooms(type, btn) {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderCards(type === "all" ? rooms : rooms.filter(r => r.type === type));
+  }
+
+  function openModal(room) {
+    document.getElementById("modalTitle").textContent = room.name;
+    document.getElementById("modalPrice").textContent = room.price;
+    const sel = document.getElementById("modalRoomType");
+    for (let opt of sel.options) opt.selected = opt.value === room.name;
+    document.getElementById("modalBackdrop").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    document.getElementById("modalBackdrop").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  function closeOnBackdrop(e) {
+    if (e.target === document.getElementById("modalBackdrop")) closeModal();
+  }
+
+  function confirmBooking() {
+    alert("Booking confirmed! We'll send your details to the email provided.");
+    closeModal();
+  }
+
+  function toggleMenu() {
+    document.getElementById("mobileMenu").classList.toggle("open");
+  }
+
+  renderCards(rooms);
+</script>
+</body>
+</html>
