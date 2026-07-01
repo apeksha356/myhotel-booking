@@ -1,0 +1,380 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#fff;
+    color:#0b2348;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* ================= NAVBAR ================= */
+
+nav{
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 70px;
+    background:white;
+    border-bottom:1px solid #eee;
+    overflow:visible;
+}
+
+
+/* LOGO FIX */
+
+nav img{
+    width:250px;
+    height:150px;
+    object-fit:contain;
+    display:block;
+}
+
+
+
+/* NAV LINKS */
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:55px;
+}
+
+
+nav ul li a{
+    text-decoration:none;
+    color:#101f3d;
+    font-size:19px;
+    font-weight:600;
+    transition:.3s;
+}
+
+
+nav ul li a:hover{
+    color:#d9b35a;
+}
+
+
+nav ul li a.active{
+    border-bottom:3px solid #d9b35a;
+    padding-bottom:15px;
+}
+
+
+
+/* BOOK BUTTON */
+
+nav button{
+    background:#08295b;
+    color:white;
+    border:none;
+    padding:16px 38px;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+
+/* ================= MAIN ================= */
+
+.page{
+    flex:1;
+    display:flex;
+    gap:70px;
+    padding:55px 80px 80px;
+}
+
+
+
+/* LEFT CONTACT */
+
+.contact-info{
+    width:35%;
+    padding-top:20px;
+}
+
+
+.contact-info h2,
+.form-section h2{
+    font-size:30px;
+    color:#0b2348;
+}
+
+
+
+.underline,
+.form-underline{
+    width:55px;
+    height:3px;
+    background:#d9b35a;
+    margin:15px 0 35px;
+}
+
+
+
+.contact-info p{
+    font-size:19px;
+    margin:30px 0;
+    color:#1d2d4d;
+}
+
+
+
+
+/* ================= FORM ================= */
+
+
+.form-section{
+    width:65%;
+}
+
+
+.form-section h2{
+    text-align:center;
+}
+
+
+.form-underline{
+    margin:15px auto 35px;
+}
+
+
+
+.row{
+    display:flex;
+    gap:25px;
+    margin-bottom:25px;
+}
+
+
+.group{
+    flex:1;
+}
+
+
+
+label{
+    display:block;
+    margin-bottom:10px;
+    font-size:17px;
+    font-weight:600;
+    color:#222;
+}
+
+
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:16px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:16px;
+    outline:none;
+}
+
+
+
+textarea{
+    height:120px;
+    resize:none;
+}
+
+
+
+/* BUTTON */
+
+.btn-book{
+    width:100%;
+    background:#08295b;
+    color:white;
+    border:none;
+    padding:18px;
+    border-radius:8px;
+    font-size:19px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+.btn-book:hover{
+    background:#0e3975;
+}
+
+
+
+/* SUCCESS */
+
+.success{
+    display:none;
+    text-align:center;
+    padding-top:100px;
+}
+
+
+/* CANCEL LINK */
+
+.cancel-link{
+    text-align:center;
+    margin-top:18px;
+    font-size:15px;
+}
+
+
+.cancel-link a{
+    color:#08295b;
+    font-weight:600;
+    text-decoration:none;
+}
+
+
+.cancel-link a:hover{
+    color:#d9b35a;
+}
+
+
+/* BOOKING RESULT CARD */
+
+.booking-card{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:20px;
+}
+
+
+.booking-card p{
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+
+.btn-cancel{
+    background:#b00020;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+
+.btn-cancel:hover{
+    background:#8a0019;
+}
+
+
+
+/* ================= FOOTER ================= */
+
+footer{
+    height:85px;
+    background:#08295b;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:auto;
+    font-size:17px;
+}
+
+
+
+/* ================= RESPONSIVE ================= */
+
+
+@media(max-width:1000px){
+
+    nav{
+        height:auto;
+        flex-direction:column;
+        gap:25px;
+        padding:25px;
+    }
+
+
+    nav img{
+        width:210px;
+        height:85px;
+    }
+
+
+    nav ul{
+        gap:25px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+
+    nav ul li a{
+        font-size:17px;
+    }
+
+
+    .page{
+        flex-direction:column;
+        padding:40px 30px;
+        gap:40px;
+    }
+
+
+    .contact-info,
+    .form-section{
+        width:100%;
+    }
+
+}
+
+
+
+@media(max-width:600px){
+
+    nav ul{
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+    }
+
+
+    nav button{
+        width:100%;
+    }
+
+
+    .row{
+        flex-direction:column;
+    }
+
+
+    nav img{
+        width:200px;
+        height:150px;
+    }
+
+
+    .contact-info h2,
+    .form-section h2{
+        font-size:25px;
+    }
+
+
+    footer{
+        height:auto;
+        padding:20px;
+        font-size:14px;
+        text-align:center;
+    }
+
+}
