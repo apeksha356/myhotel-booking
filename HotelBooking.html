@@ -59,45 +59,6 @@
 <!-- FOOTER -->
 <footer>&copy; 2026 MyHotel Booking. All rights reserved.</footer>
 
-<!-- BOOKING MODAL -->
-<div class="modal-backdrop" id="modalBackdrop" onclick="closeOnBackdrop(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <h2 id="modalTitle">Room Name</h2>
-    <p class="price" id="modalPrice"></p>
-
-    <label>Room type</label>
-    <select id="modalRoomType">
-      <option value="">Select a room type</option>
-      <option>Standard Room</option>
-      <option>Deluxe Room</option>
-      <option>Suite Room</option>
-    </select>
-
-    <label>Full name</label>
-    <input type="text" placeholder="e.g. Hari Sharma" />
-
-    <label>Email address</label>
-    <input type="email" placeholder="you@email.com" />
-
-    <div class="modal-row">
-      <div>
-        <label>Check-in</label>
-        <input type="date" />
-      </div>
-      <div>
-        <label>Check-out</label>
-        <input type="date" />
-      </div>
-    </div>
-
-    <label>Guests</label>
-    <input type="number" min="1" max="6" value="1" />
-
-    <button class="btn-book" onclick="confirmBooking()">Confirm booking</button>
-  </div>
-</div>
-
 <script>
   const rooms = [
     {
